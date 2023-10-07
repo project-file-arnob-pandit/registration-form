@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registation page</title>
+    <link rel="shortcut icon" href="user-regi.png" type="image/x-icon">
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+            color: chartreuse;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        *::selection {
+            color: blue;
+            background: chartreuse;
+        }
+
+        .content {
+            background: darkblue;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+
+        }
+
+        .content .form {
+            border: 4px solid chartreuse;
+            width: 400px;
+            height: 500px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .form h2 {
+            margin-top: 40px;
+            text-transform: uppercase;
+            padding-bottom: 40px;
+        }
+
+        .form label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+
+        }
+
+        .form label span {
+            position: absolute;
+            margin-top: -60px;
+            margin-left: -150px;
+            text-transform: capitalize;
+            transition: all ease 0.4s;
+            visibility: ;
+        }
+
+
+        .form input {
+            width: 60%;
+            height: 40px;
+            margin: 15px;
+
+            background: transparent;
+            padding: 5px;
+            border: none;
+            border-bottom: 2px solid chartreuse;
+
+            font-size: 20px;
+            color: white;
+            transition: all ease 0.8s;
+        }
+
+        .form input::placeholder {
+            color: white;
+        }
+
+        .form input:focus {
+            font-size: 20px;
+            color: white;
+            outline: none;
+            background: rgba(124, 228, 21, 0.7);
+            transition: all ease 1s;
+            font-weight: 900;
+            border-radius: 6px;
+        }
+
+        .form #otp {
+            width: 120px;
+        }
+
+        .form .btn {
+
+            height: 40px;
+            margin-left: -2px;
+            font-size: 20px;
+            font-weight: 900;
+            padding: 1px 20px;
+            text-transform: capitalize;
+            color: chartreuse;
+            background: transparent;
+            border: 2px solid;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all ease 0.4s;
+        }
+
+        .form .btn:active {
+            scale: 0.9;
+            color: black;
+            background: chartreuse;
+        }
+
+        /* .form button:focus {
+            
+            transition: all ease 0.4s;
+            
+        } */
+        .form label .text-otp {
+            margin-left: -5px;
+        }
+
+        .form label #verifyOTP,
+        #sendOTP {
+            width: 80px;
+            height: 30px;
+            background: transparent;
+            border: 2px solid chartreuse;
+            border-radius: 10px;
+            transition: all ease 0.3s;
+            cursor: pointer;
+        }
+
+        .form #verifyOTP:active,
+        #sendOTP:active {
+            scale: 0.9;
+            color: black;
+            background: chartreuse;
+            color: black;
+            font-weight: 900;
+
+        }
+
+        .form p {
+            margin-top: 40px;
+        }
+
+        .form .s {
+            color: chartreuse;
+            font-weight: 900;
+            cursor: pointer;
+            background: ;
+            border: 1px solid;
+            border-radius: 4px;
+            padding: 2px 4px;
+            margin-top: 10px;
+        }
+
+        .form .s a {
+            text-decoration: none;
+            color: chartreuse;
+        }
+
+        .form img {
+
+            margin-right: -12px;
+            cursor: pointer;
+
+        }
+
+        #result {
+            margin-bottom: 15px;
+
+        }
+
+        #msg {
+            padding-bottom: 10px;
+        }
+
+        #otp {
+            text-align: center;
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <form class="form" id="signup-form">
+            <h2>sign up</h2>
+
+            <label for=""><i class="ri-user-line"></i>
+                <span>user id&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input type="text" id="signup-username" name="username" placeholder="" required><img style="visibility: hidden;"
+                    src="eye-off-line.png" alt="">
+            </label>
+
+            <!-- otp verification system -->
+            <label for=""><button id="sendOTP">Send OTP</button>
+                <span class="text-otp">enter otp</span>
+                <input type="text" id="otp" required><button id="verifyOTP">Verify OTP</button>
+            </label>
+            <div id="result"></div>
+
+            <label for=""><i class="ri-key-fill"></i>
+                <span>password</span>
+                <input type="password" id="signup-password" name="password" required><img onclick="sh()"
+                    src="eye-off-line.png" id="eye" alt="">
+            </label>
+
+            <button type="submit" class="btn">Sign Up</button>
+            <p id="msg">you have a already account?</p> <span class="s"><a id="link"
+                    href="login form.html">login</a></span>
+        </form>
+    </div>
+</body>
+<script>
+    // this code for store user id and password
+    document.getElementById("signup-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Get the entered username and password
+        var username = document.getElementById("signup-username").value;
+        var password = document.getElementById("signup-password").value;
+
+        // Check if the username is available (for demo, you can hardcode this check)
+        // In a real application, you would typically check against a database.
+        if (localStorage.getItem(username) !== null) {
+            alert("Username already exists. Please choose a different one.");
+            //reload your page
+            location.reload();
+        } else {
+            // Store the user's password in localStorage with the username as the key
+            localStorage.setItem(username, password);
+            alert("Sign up successful. You can now log in.");
+            document.getElementById('link').click();
+
+        }
+
+    });
+    //otp verification system
+    document.getElementById("sendOTP").addEventListener("click", function (event) {
+        event.preventDefault();
+        const email = document.getElementById("signup-username").value;
+
+        // Simulate sending OTP via email (replace with actual email sending logic)
+        // In this simplified example, we generate a random OTP and display it on the page
+
+        const otp = Math.floor(100000 + Math.random() * 900000);
+        setTimeout(function () {
+            document.getElementById("result").innerText = `OTP sent your user id ${email}: ${otp}`;
+        }, 2000);
+    });
+
+
+    document.getElementById("verifyOTP").addEventListener("click", function (event) {
+        event.preventDefault();
+        const enteredOTP = document.getElementById("otp").value;
+        // Here, you would typically send the entered OTP to the server for verification
+        // In this example, we compare it with the displayed OTP
+        //const displayedOTP = document.getElementById("result").innerText.split(": ")[1];
+        const displayedOTP = document.getElementById("result").innerText.split(": ")[1];
+
+        if (enteredOTP === displayedOTP) {
+
+            // document.getElementById("result").innerText = "OTP verified successfully!";
+
+            alert('OTP verified successfully!');
+            document.getElementById('sendOTP').remove();
+            document.querySelector('.text-otp').remove();
+            document.getElementById('otp').remove();
+            document.getElementById('verifyOTP').remove();
+            //document.getElementById('result').style.visibility = 'hidden' ;
+            document.getElementById('result').innerHTML = "now set your password";
+            document.querySelector('.form').style.height = "440px";
+            document.getElementById('signup-username').disabled = true;
+            alert('user id not change');
+        } else {
+
+            //document.getElementById("result").innerText = "OTP verification failed. Please try again.";
+            alert('OTP verification failed. Please try again.');
+
+        }
+    });
+
+    //this funtions use to show password 
+    let password = document.getElementById("signup-password");
+    let hsbtn = document.getElementById('eye');
+    function sh() {
+        if (password.type === 'password') {
+            password.setAttribute('type', 'text');
+            hsbtn.src = "eye-line.png";
+        }
+        else {
+            password.setAttribute('type', 'password');
+            hsbtn.src = "eye-off-line.png";
+        }
+    }
+</script>
+
+</html>
